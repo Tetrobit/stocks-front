@@ -1,0 +1,35 @@
+{
+    "name": "project",
+    "version": "0.0.0",
+    "main": "./src/index.tsx",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "brojs server --port=8099 --with-open-browser",
+        "build": "npm run clean && brojs build --dev",
+        "build:prod": "npm run clean && brojs build",
+        "clean": "rimraf dist",
+        "eslint": "eslint ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@brojs/cli": "^1.0.0",
+        "express": "^4.19.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.28.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.14.0",
+        "eslint": "^9.14.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-react": "^7.37.2",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "globals": "^15.12.0",
+        "typescript-eslint": "^8.13.0"
+    }
+}
