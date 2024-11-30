@@ -9,14 +9,13 @@ module.exports = {
   },
   /* use https://admin.bro-js.ru/ to create config, navigations and features */
   navigations: {
-    "project.main": "/project",
+    "tetrobit-stocks.main": "tetrobit-stocks/",
+    "tetrobit-stocks.describe": "tetrobit-stocks/describe",
   },
   features: {
-    "project": {
-      // add your features here in the format [featureName]: { value: string }
-    },
+    "tetrobit-stocks": {}
   },
   config: {
-    "project.api": "/api",
+    // "project.api": "/api",
   },
 };

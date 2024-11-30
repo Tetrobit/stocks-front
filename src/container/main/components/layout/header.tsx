@@ -6,11 +6,11 @@ import { getNavigationsValue } from '@brojs/cli';
 const navigations: Array<{ name: string; href: string }> = [
   {
     name: 'Главная',
-    href: getNavigationsValue('project.main')
+    href: getNavigationsValue('tetrobit-stocks.main')
   },
   {
     name: 'Детальная информация',
-    href: getNavigationsValue('project.detail')
+    href: getNavigationsValue('tetrobit-stocks.describe')
   }
 ];
 

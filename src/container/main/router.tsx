@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import ListPage from '../list/list';
@@ -8,15 +7,15 @@ import Layout from './components/layout';
 
 export const router = createBrowserRouter([
   {
-    path: getNavigationsValue('project.main'),
+    path: getNavigationsValue('tetrobit-stocks.main'),
     element: <Layout />,
     children: [
       {
-        path: getNavigationsValue('project.main'),
+        path: getNavigationsValue('tetrobit-stocks.main'),
         element: <ListPage />
       },
       {
-        path: getNavigationsValue('project.detail'),
+        path: getNavigationsValue('tetrobit-stocks.describe'),
         element: <DetailPage />
       }
     ]

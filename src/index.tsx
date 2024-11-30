@@ -8,7 +8,7 @@ export default () => <App />;
 let rootElement: ReactDOM.Root;
 
 export const mount = (Сomponent, element = document.getElementById('app')) => {
-  const rootElement = ReactDOM.createRoot(element);
+  rootElement = ReactDOM.createRoot(element);
   rootElement.render(<Сomponent />);
 
   if (module.hot) {
