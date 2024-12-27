@@ -1,22 +1,32 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import ListPage from '../list/list';
-import DetailPage from '../detail';
-import { getNavigationsValue } from '@brojs/cli';
+import ExRatePage from '../ex_rate';
+import HistoryPage from '../history';
+import ConverterPage from '../converter';
+import MainPage from './page';
+import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
 
 export const router = createBrowserRouter([
   {
-    path: getNavigationsValue('tetrobit-stocks.main'),
+    path: getNavigationValue('tetrobit-stocks.main'),
     element: <Layout />,
     children: [
       {
-        path: getNavigationsValue('tetrobit-stocks.main'),
-        element: <ListPage />
+        path: getNavigationValue('tetrobit-stocks.main'),
+        element: <MainPage />
       },
       {
-        path: getNavigationsValue('tetrobit-stocks.describe'),
-        element: <DetailPage />
+        path: getNavigationValue('tetrobit-stocks.ex-rate'),
+        element: <ExRatePage />
+      },
+      {
+        path: getNavigationValue('tetrobit-stocks.converter'),
+        element: <ConverterPage />
+      },
+      {
+        path: getNavigationValue('tetrobit-stocks.history'),
+        element: <HistoryPage />
       }
     ]
   }

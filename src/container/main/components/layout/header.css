@@ -1,0 +1,27 @@
+header.app-header {
+    align-items: center;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 0 10%;
+    width: 100%;
+}
+
+header.app-header .app-header-logo {
+    width: 150px;
+}
+
+header.app-header .app-header-logo img {
+    width: 100%;
+}
+
+header.app-header .app-header-nav {
+    display: flex;
+}
+
+header.app-header .app-header-nav > .app-header-nav-item {
+    margin: 0 5px;
+}
