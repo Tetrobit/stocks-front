@@ -1,0 +1,24 @@
+.exrate {
+  padding-top: 100px;
+}
+
+.exrate > .main-currency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30pt;
+  font-family: 'Montserrat';
+}
+
+.exrate > .main-currency > .currency-count {
+  margin-right: 25px;
+}
+
+.currency-item {
+  display: flex;
+  align-items: center;
+}
+
+.currency-item > span {
+  margin-left: 10px;
+}
