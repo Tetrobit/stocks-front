@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { getNavigationValue } from '@brojs/cli';
 
 import Button from '@mui/material/Button';
+import './style.css';
 
-import logoImage from '../../../../assets/images/logo.svg';
+import logoImage from '../../../../../assets/images/logo.svg';
 
 const navigations: Array<{ name: string; href: string }> = [
   {
@@ -35,7 +36,6 @@ const Header = (): React.ReactElement => {
       <nav className='app-header-nav'>
         {navigations.map((item) => {
           const chosen = (window.location.pathname == item.href);
-          console.log(item.href, chosen)
           return (
             <div key={`${item.href}-${chosen ? '0' : '1'}`} className='app-header-nav-item'>
               <Link onClick={() => forceUpdate()} to={item.href}>
