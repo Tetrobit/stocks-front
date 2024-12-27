@@ -7,7 +7,7 @@ const MainPage = (): React.ReactElement => {
     <div className='greeting'>
       <div className='greeting-title'>
         <h1>TetroBit.Финансы</h1>
-        <h2>Тут вся информация о курсах валют</h2>
+        <h2>Всё о курсах валют в одном месте</h2>
       </div>
     </div>
   );
