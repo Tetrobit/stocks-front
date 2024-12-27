@@ -12,6 +12,25 @@ import { currencies } from '../../constants/currencies';
 const ExRatePage = (): React.ReactElement => {
 
   const [currency, setCurrency] = React.useState('RUB');
+  const currencies_values = React.useMemo(() => {
+    let list_currencies = Object.entries(currencies);
+    list_currencies = list_currencies.filter(cur => cur[0] != currency);
+
+    let currencies_cnt = list_currencies.length;
+    return list_currencies.map(([cur, [name, country]]) => {
+      return (
+        <div className='currency-info'>
+          <div className='currency-price-info'>
+            <span className='currency-cost'>1.00 {cur}</span>
+          </div>
+          <div className='currency-price-subtitle'>
+            <img width="20" src={countries_icons[country]} alt={country} />
+            <span className='currency-name'>{name}</span>
+          </div>
+        </div>
+      );
+    });
+  }, [currency]);
   
   const handleChange = (event: SelectChangeEvent) => {
     setCurrency(event.target.value);
@@ -37,6 +56,14 @@ const ExRatePage = (): React.ReactElement => {
             );
           })}
         </Select>
+      </div>
+      <div className='currency-prices'>
+          <div className='currency-prices-col'>
+            {currencies_values.slice(0, currencies_values.length >> 1)}
+          </div>
+          <div className='currency-prices-col'>
+            {currencies_values.slice(currencies_values.length >> 1)}
+          </div>
       </div>
     </div>
   )

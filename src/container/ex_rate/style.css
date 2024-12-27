@@ -1,5 +1,5 @@
 .exrate {
-  padding-top: 100px;
+  padding-top: 30px;
 }
 
 .exrate > .main-currency {
@@ -21,4 +21,42 @@
 
 .currency-item > span {
   margin-left: 10px;
+}
+
+.currency-prices {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.currency-prices .currency-prices-col {
+  margin: 0 70px;
+  font-family: 'Montserrat';
+}
+
+.currency-prices .currency-prices-col .currency-info {
+  align-items: center;
+  margin: 25px 0;
+  border: 1px solid #eee;
+  padding: 7px 10px;
+  border-radius: 10px;
+}
+
+.currency-prices .currency-prices-col .currency-price-info {
+  text-align: center;
+  /* margin-right: 10px; */
+  font-size: 30pt;
+  font-weight: 300;
+  border-bottom: 1px solid #eee;
+}
+
+.currency-prices .currency-prices-col .currency-price-subtitle {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.currency-prices .currency-prices-col .currency-price-subtitle > img {
+  margin-right: 10px;
 }
