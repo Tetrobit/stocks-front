@@ -1,31 +1,52 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getNavigationsValue } from '@brojs/cli';
+import { Link } from 'react-router-dom'
+import { getNavigationValue } from '@brojs/cli';
+
+import Button from '@mui/material/Button';
+
+import logoImage from '../../../../assets/images/logo.svg';
 
 const navigations: Array<{ name: string; href: string }> = [
   {
-    name: 'Главная',
-    href: getNavigationsValue('tetrobit-stocks.main')
+    name: 'Курсы валют',
+    href: getNavigationValue('tetrobit-stocks.ex-rate')
   },
   {
-    name: 'Детальная информация',
-    href: getNavigationsValue('tetrobit-stocks.describe')
+    name: 'Конвертер',
+    href: getNavigationValue('tetrobit-stocks.converter')
+  },
+  {
+    name: 'История изменения',
+    href: getNavigationValue('tetrobit-stocks.history')
   }
 ];
 
 const Header = (): React.ReactElement => {
+  const forceUpdate = React.useReducer(x => x + 1, 0)[1];
+  
   return (
-    <header>
-      <ul>
+    <header className='app-header'>
+      <div className='app-header-logo'>
+        <Link onClick={() => forceUpdate()} to={getNavigationValue('tetrobit-stocks.main')}>
+          <img src={logoImage} />
+        </Link>
+      </div>
+      <nav className='app-header-nav'>
         {navigations.map((item) => {
+          const chosen = (window.location.pathname == item.href);
+          console.log(item.href, chosen)
           return (
-            <li key={item.name}>
-              <Link to={item.href}>{item.name}</Link>
-            </li>
+            <div key={`${item.href}-${chosen ? '0' : '1'}`} className='app-header-nav-item'>
+              <Link onClick={() => forceUpdate()} to={item.href}>
+                <Button key={item.name} variant={chosen ? 'contained' : 'outlined'}>
+                  {item.name}
+                </Button>
+              </Link>
+            </div>
           );
         })}
-      </ul>
+      </nav>
     </header>
   );
 };

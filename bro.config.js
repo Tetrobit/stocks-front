@@ -9,8 +9,10 @@ module.exports = {
   },
   /* use https://admin.bro-js.ru/ to create config, navigations and features */
   navigations: {
-    "tetrobit-stocks.main": "tetrobit-stocks/",
-    "tetrobit-stocks.describe": "tetrobit-stocks/describe",
+    "tetrobit-stocks.main": "/tetrobit-stocks/",
+    "tetrobit-stocks.ex-rate": "/tetrobit-stocks/ex-rate",
+    "tetrobit-stocks.converter": "/tetrobit-stocks/converter",
+    "tetrobit-stocks.history": "/tetrobit-stocks/history",
   },
   features: {
     "tetrobit-stocks": {}
