@@ -44,10 +44,14 @@
 
 .currency-prices .currency-prices-col .currency-price-info {
   text-align: center;
-  /* margin-right: 10px; */
   font-size: 30pt;
   font-weight: 300;
   border-bottom: 1px solid #eee;
+}
+
+.currency-prices .currency-prices-col .currency-price-info .currency-code {
+  color: #555;
+  font-weight: 300;
 }
 
 .currency-prices .currency-prices-col .currency-price-subtitle {
