@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
