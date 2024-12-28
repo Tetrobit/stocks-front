@@ -45,7 +45,7 @@ const CurrencyChart = (props: CurrencyChartProps) => {
                     data,
                     fill: false,
                     borderColor: '#1e88e5',
-                    tension: 0.1
+                    pointRadius: 0
                 }]
             },
         });
