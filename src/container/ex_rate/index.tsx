@@ -6,6 +6,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import './style.css';
 
+import { getExRate } from '../../api';
 import { countries_icons } from '../../constants/countries';
 import { currencies } from '../../constants/currencies';
 
@@ -17,11 +18,14 @@ const ExRatePage = (): React.ReactElement => {
     list_currencies = list_currencies.filter(cur => cur[0] != currency);
 
     let currencies_cnt = list_currencies.length;
+    let ex_rate = getExRate();
     return list_currencies.map(([cur, [name, country]]) => {
+      let price = ex_rate[cur] / ex_rate[currency];
       return (
         <div className='currency-info'>
           <div className='currency-price-info'>
-            <span className='currency-cost'>1.00 {cur}</span>
+            <span className='currency-cost'>{price.toFixed(4)} </span>
+            <span className='currency-code'>{cur}</span>
           </div>
           <div className='currency-price-subtitle'>
             <img width="20" src={countries_icons[country]} alt={country} />
