@@ -10,8 +10,11 @@
   font-family: 'Montserrat';
 }
 
-.exrate > .main-currency > .currency-count {
-  margin-right: 25px;
+.exrate > .main-currency > .currency-code {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #444;
+  font-weight: 300;
 }
 
 .currency-item {

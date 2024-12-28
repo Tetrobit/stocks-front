@@ -44,6 +44,7 @@ const ExRatePage = (): React.ReactElement => {
     <div className='exrate'>
       <div className='main-currency'>
         <span className='currency-count'>1</span>
+        <span className='currency-code'>{ currency }</span>
         <Select
           value={currency}
           onChange={handleChange}
