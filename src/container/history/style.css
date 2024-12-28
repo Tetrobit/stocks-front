@@ -1,0 +1,12 @@
+.history {
+  padding-top: 50px;
+}
+
+.history > .currencies {
+  display: flex;
+  justify-content: center;
+}
+
+.history > .currencies > * {
+  margin: 0 8px;
+}
