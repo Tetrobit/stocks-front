@@ -15,7 +15,7 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "@brojs/cli": "^1.0.0",
+        "@brojs/cli": "^1.8.4",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
         "@mui/icons-material": "^6.3.0",
