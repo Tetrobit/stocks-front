@@ -10,8 +10,11 @@
   font-family: 'Montserrat';
 }
 
-.exrate > .main-currency > .currency-count {
-  margin-right: 25px;
+.exrate > .main-currency > .currency-code {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #444;
+  font-weight: 300;
 }
 
 .currency-item {
@@ -23,44 +26,63 @@
   margin-left: 10px;
 }
 
-.currency-prices {
+.currency-prices-wrapper {
   display: flex;
   margin-top: 20px;
   justify-content: center;
 }
 
-.currency-prices .currency-prices-col {
-  margin: 0 70px;
+.currency-prices-wrapper .currency-prices {
+  display: flex;
   font-family: 'Montserrat';
+  max-width: 700px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.currency-prices .currency-prices-col .currency-info {
+.currency-prices-wrapper .currency-prices .currency-info {
+  width: 260px;
   align-items: center;
-  margin: 25px 0;
+  margin: 25px 5px;
   border: 1px solid #eee;
   padding: 7px 10px;
   border-radius: 10px;
 }
 
-.currency-prices .currency-prices-col .currency-price-info {
+.currency-prices-wrapper .currency-prices .currency-price-info {
   text-align: center;
   font-size: 30pt;
   font-weight: 300;
   border-bottom: 1px solid #eee;
 }
 
-.currency-prices .currency-prices-col .currency-price-info .currency-code {
+.currency-prices-wrapper .currency-prices .currency-price-info .currency-code {
   color: #555;
   font-weight: 300;
 }
 
-.currency-prices .currency-prices-col .currency-price-subtitle {
+.currency-prices-wrapper .currency-prices .currency-price-subtitle {
   margin-top: 5px;
   display: flex;
   align-items: center;
   font-weight: 600;
 }
 
-.currency-prices .currency-prices-col .currency-price-subtitle > img {
+.currency-prices-wrapper .currency-prices .currency-price-subtitle > img {
   margin-right: 10px;
+}
+
+@media(max-width: 650px) {
+  .exrate > .main-currency {
+    font-size: 20pt;
+  }
+  
+  .currency-prices-wrapper .currency-prices .currency-price-info {
+    font-size: 20pt;
+  }
+
+  .currency-prices-wrapper .currency-prices .currency-info {
+    width: 200px;
+    margin-top: 0;
+  }
 }

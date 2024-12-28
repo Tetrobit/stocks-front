@@ -64,6 +64,7 @@ const ConverterPage = (): React.ReactElement => {
                   label={label}
                   variant='outlined'
                   type='number'
+                  fullWidth={true}
                 />
               </div>
               <div className='converter-field-currency'>

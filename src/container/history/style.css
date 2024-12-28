@@ -20,5 +20,17 @@
 }
 
 .history > .dynamic-chart-wrapper > .dynamic-chart {
-  width: 600px;
+  width: 800px;
+}
+
+@media(max-width: 850px) {
+  .history > .dynamic-chart-wrapper > .dynamic-chart {
+    width: 600px;
+  }
+}
+
+@media(max-width: 650px) {
+  .history > .dynamic-chart-wrapper > .dynamic-chart {
+    width: 90%;
+  }
 }
