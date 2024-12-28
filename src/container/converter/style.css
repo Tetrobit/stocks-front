@@ -23,3 +23,14 @@
 .converter .converter-field .converter-field-currency {
   margin-top: 10px;
 }
+
+@media(max-width: 750px) {
+  .converter {
+    flex-direction: column;
+    padding-top: 30px;
+  }
+
+  .converter .converter-rotator {
+    margin: 10px 0;
+  } 
+}

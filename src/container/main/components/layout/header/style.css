@@ -22,6 +22,32 @@ header.app-header .app-header-nav {
     display: flex;
 }
 
+header.app-header .app-header-drawer {
+    display: none;
+}
+
 header.app-header .app-header-nav > .app-header-nav-item {
     margin: 0 5px;
+}
+
+
+@media(max-width: 750px) {
+    header.app-header .app-header-nav {
+        display: none;
+    }
+    
+
+    header.app-header .app-header-drawer {
+        display: unset;
+    }
+}
+
+@media(max-width: 400px) {
+    header.app-header {
+        height: 70px;
+    }
+
+    header.app-header .app-header-logo {
+        width: 100px;
+    }
 }

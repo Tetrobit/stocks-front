@@ -60,13 +60,10 @@ const ExRatePage = (): React.ReactElement => {
           })}
         </Select>
       </div>
-      <div className='currency-prices'>
-          <div className='currency-prices-col'>
-            {currencies_values.slice(0, currencies_values.length >> 1)}
-          </div>
-          <div className='currency-prices-col'>
-            {currencies_values.slice(currencies_values.length >> 1)}
-          </div>
+      <div className='currency-prices-wrapper'>
+        <div className='currency-prices'>
+          { currencies_values }
+        </div>
       </div>
     </div>
   )
