@@ -1,4 +1,4 @@
-export const currencies = {
+export const CURRENCIES = {
     'BYN': ['Белорусский рубль', 'belarus'],
     'CAD': ['Канадский доллар', 'canada'],
     'CNY': ['Юань', 'china'],
