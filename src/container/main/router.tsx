@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ExRatePage from '../ex_rate';
 import HistoryPage from '../history';
 import ConverterPage from '../converter';
-import MainPage from './page';
+import MainPage from './components/page';
 import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
 
