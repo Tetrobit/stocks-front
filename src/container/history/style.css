@@ -23,6 +23,12 @@
   width: 800px;
 }
 
+.history > .currencies > .currency-selector {
+  width: 80%;
+  max-width: 250px;
+}
+
+
 @media(max-width: 850px) {
   .history > .dynamic-chart-wrapper > .dynamic-chart {
     width: 600px;
@@ -32,5 +38,12 @@
 @media(max-width: 650px) {
   .history > .dynamic-chart-wrapper > .dynamic-chart {
     width: 90%;
+  }
+}
+
+@media(max-width: 450px) {
+  .history > .currencies {
+    flex-direction: column;
+    margin-bottom: 30px;
   }
 }

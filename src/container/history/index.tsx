@@ -34,7 +34,7 @@ const HistoryPage = (): React.ReactElement => {
           return <React.Fragment key={cur}>
                 <div className='currency-selector'>
                   <Select
-                    variant='standard'
+                    variant='outlined'
                     size='small'
                     fullWidth={true}
                     value={cur}
