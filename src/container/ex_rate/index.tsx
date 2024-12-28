@@ -22,7 +22,7 @@ const ExRatePage = (): React.ReactElement => {
     return list_currencies.map(([cur, [name, country]]) => {
       let price = ex_rate[cur] / ex_rate[currency];
       return (
-        <div className='currency-info'>
+        <div key={cur} className='currency-info'>
           <div className='currency-price-info'>
             <span className='currency-cost'>{price.toFixed(4)} </span>
             <span className='currency-code'>{cur}</span>
@@ -40,7 +40,7 @@ const ExRatePage = (): React.ReactElement => {
     setCurrency(event.target.value);
   };
 
-    return (
+  return (
     <div className='exrate'>
       <div className='main-currency'>
         <span className='currency-count'>1</span>
