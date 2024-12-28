@@ -8,6 +8,9 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 import './style.css';
 
+import CurrencyChart from './currency_chart';
+
+import { isAvailableHistory } from '../../api';
 import { COUNTRIES_ICONS } from '../../constants/countries';
 import { CURRENCIES } from '../../constants/currencies';
 
@@ -19,7 +22,6 @@ const HistoryPage = (): React.ReactElement => {
     newCurrencies[id] = event.target.value;
     setCurrencies(newCurrencies);
   };
-
 
   const handleRotate = () => {
     setCurrencies(currencies.reverse().slice());
@@ -39,6 +41,7 @@ const HistoryPage = (): React.ReactElement => {
                     onChange={handleChangeCurrency(curIndex)}
                   >
                     { Object.entries(CURRENCIES).map(([cur, [name, country]]) => {
+                      if (!isAvailableHistory(cur)) return null;
                       return (
                         <MenuItem disabled={currencies.indexOf(cur) != -1} key={cur} value={cur}>
                           <div className='currency-item'>
@@ -60,6 +63,12 @@ const HistoryPage = (): React.ReactElement => {
             }
           </React.Fragment>
         })}
+      </div>
+
+      <div className='dynamic-chart-wrapper'>
+        <div className='dynamic-chart'>
+          <CurrencyChart currencyBuy={currencies[0]} currencySell={currencies[1]} />
+        </div>
       </div>
     </div>
   );

@@ -5,8 +5,20 @@
 .history > .currencies {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .history > .currencies > * {
   margin: 0 8px;
+}
+
+.history > .dynamic-chart-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.history > .dynamic-chart-wrapper > .dynamic-chart {
+  width: 600px;
 }
