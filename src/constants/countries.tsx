@@ -15,7 +15,7 @@ import uk from '../assets/icons/countries/uk.png';
 import ukraine from '../assets/icons/countries/ukraine.png';
 import usa from '../assets/icons/countries/usa.png';
 
-export const countries_icons = {
+export const COUNTRIES_ICONS = {
     'belarus': belarus,
     'canada': canada,
     'china': china,
