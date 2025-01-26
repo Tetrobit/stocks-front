@@ -35,6 +35,10 @@ const navigations: Array<{ name: string; href: string }> = [
   {
     name: 'Войти',
     href: getNavigationValue('tetrobit-stocks.login')
+  },
+  {
+    name: 'Профиль',
+    href: getNavigationValue('tetrobit-stocks.profile')
   }
 ];
 
