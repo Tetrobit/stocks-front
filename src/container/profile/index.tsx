@@ -31,7 +31,7 @@ const UserProfile: React.FC = () => {
 
   const handleLogout = () => {
     // Логика выхода из системы
-    console.log('Выход');
+    navigate(getNavigationValue('tetrobit-stocks.main'));
   };
 
   return (
