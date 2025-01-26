@@ -13,6 +13,8 @@ module.exports = {
     "tetrobit-stocks.ex-rate": "/tetrobit-stocks/ex-rate",
     "tetrobit-stocks.converter": "/tetrobit-stocks/converter",
     "tetrobit-stocks.history": "/tetrobit-stocks/history",
+    "tetrobit-stocks.login": "/tetrobit-stocks/login",
+    "tetrobit-stocks.signin": "/tetrobit-stocks/signin",
     "tetrobit-stocks.profile": "/tetrobit-stocks/profile",
     "tetrobit-stocks.transfer": "/tetrobit-stocks/transfer",
     "tetrobit-stocks.top-up": "/tetrobit-stocks/top-up",
