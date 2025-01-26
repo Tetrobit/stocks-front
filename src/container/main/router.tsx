@@ -8,6 +8,7 @@ import MainPage from './components/page';
 import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
 import TransferPage from '../transfer';
+import TopUpPage from '../top-up';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: getNavigationValue('tetrobit-stocks.transfer'),
         element: <TransferPage />
+      },
+      {
+        path: getNavigationValue('tetrobit-stocks.top-up'),
+        element: <TopUpPage />
       }
     ]
   }
