@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ExRatePage from '../ex_rate';
 import HistoryPage from '../history';
 import ConverterPage from '../converter';
+import LoginPage from '../login';
 import MainPage from './components/page';
 import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: getNavigationValue('tetrobit-stocks.history'),
         element: <HistoryPage />
+      },
+      {
+        path: getNavigationValue('tetrobit-stocks.login'),
+        element: <LoginPage />
       }
     ]
   }
