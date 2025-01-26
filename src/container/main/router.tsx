@@ -5,6 +5,7 @@ import HistoryPage from '../history';
 import ConverterPage from '../converter';
 import LoginPage from '../login';
 import MainPage from './components/page';
+import SigninPage from '../signin';
 import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
 
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: getNavigationValue('tetrobit-stocks.login'),
         element: <LoginPage />
+      },
+      {
+        path: getNavigationValue('tetrobit-stocks.signin'),
+        element: <SigninPage />
       }
     ]
   }
