@@ -14,6 +14,7 @@ module.exports = {
     "tetrobit-stocks.converter": "/tetrobit-stocks/converter",
     "tetrobit-stocks.history": "/tetrobit-stocks/history",
     "tetrobit-stocks.profile": "/tetrobit-stocks/profile",
+    "tetrobit-stocks.transfer": "/tetrobit-stocks/transfer",
   },
   features: {
     "tetrobit-stocks": {}

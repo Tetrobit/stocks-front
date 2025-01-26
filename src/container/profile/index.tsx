@@ -1,9 +1,14 @@
 import React from 'react';
-import './style.css';
+import { useNavigate } from 'react-router-dom'
+import { getNavigationValue } from '@brojs/cli';
+
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
+import './style.css';
+
 const UserProfile: React.FC = () => {
+  const navigate = useNavigate();
   const user = {
     name: 'Вася Пупкин',
     uid: '224729875',
@@ -18,9 +23,10 @@ const UserProfile: React.FC = () => {
     console.log('Пополнить баланс');
   };
 
-  const handleSendToUser = () => {
+  const handleTransfer = () => {
     // Логика отправки пользователю
     console.log('Отправить пользователю');
+    navigate(getNavigationValue('tetrobit-stocks.transfer'));
   };
 
   const handleLogout = () => {
@@ -47,7 +53,7 @@ const UserProfile: React.FC = () => {
         <div className="buttons-section">
           <Stack spacing={2} direction="column">
             <Button onClick={handleTopUpBalance} variant="contained">Пополнить баланс</Button>
-            <Button onClick={handleSendToUser} variant="contained">Отправить пользователю</Button>
+            <Button onClick={handleTransfer} variant="contained">Отправить пользователю</Button>
             <Button onClick={handleLogout}  variant="contained">Выход</Button>
           </Stack>
         </div>
