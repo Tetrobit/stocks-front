@@ -3,9 +3,13 @@ import React from 'react';
 import './style.css';
 import { randomIdx, randomInt } from '../../utils/random';
 import { repeatArray } from '../../utils/array';
+import { hsl2rgb, rgb2string } from '../../utils/color';
 
 const TILE_WIDTH = 15; // Pixels
 const TILE_SPACE = 4; // Pixels between tiles
+const SAFE_SPACE = 6;
+const SHIFT_RATE = 40;
+const CREATE_RATE = 100;
 
 const FIGURE_PATTERNS = [
     [
@@ -47,7 +51,7 @@ const FIGURE_PATTERNS = [
         [0, 1, 1, 1, 1, 0],
         [0, 0, 0, 0, 0, 0],
     ]
-]
+];
 
 const TRANSITIONS = []
     .concat(repeatArray([-2], 30))
@@ -83,6 +87,9 @@ class InteractiveTiles {
     rowsCount: number;
     colsCount: number;
     dynamicBlocks: Array<IPoint>;
+    lastShiftTime: number;
+    lastAddedFigureTime: number;
+    animationFrameId: number;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -97,43 +104,35 @@ class InteractiveTiles {
         this.paddingTop = Math.floor(this.paddingTop / 2);
         this.paddingLeft = Math.floor(this.paddingLeft / 2);
 
+        this.lastShiftTime = Date.now();
+        this.lastAddedFigureTime = Date.now();
+
+        this.animationFrameId = null;
+
         this.blocks = [];
-        for (let i = 0; i < this.rowsCount; i++) {
+        for (let i = 0; i < this.rowsCount + SAFE_SPACE; i++) {
             this.blocks[i] = [];
             for (let j = 0; j < this.colsCount; j++) {
                 this.blocks[i].push(new Tile('#ffffff'));
             }
         }
 
-        let maxHeight = Math.random() * this.rowsCount / 2;
-        let height = Math.floor(maxHeight / 2 + 1);
-        for (let j = 0; j < this.colsCount; j++) {
-            height += TRANSITIONS[randomIdx(TRANSITIONS.length)];
-            height = Math.min(Math.max(1, height), maxHeight);
-            for (let i = 0; i < height; i++) {
-                this.blocks[i][j].color = "#1111" + Math.floor(Math.random() * 55 + 200).toString(16);
-            }
-        }
-
-        for (let i = 0; i < 10 && this.tryAddElement(); i++);
-
-        // requestAnimationFrame(this.render.bind(this));
-        setInterval(this.render.bind(this), 1000);
+        requestAnimationFrame(this.render.bind(this));
     }
 
     tryAddElement(): boolean {
         for (let attempt = 0; attempt <= 10; attempt++) {
             let type = randomIdx(FIGURE_PATTERNS.length);
 
-            const w = FIGURE_PATTERNS[type].length;
-            const h = FIGURE_PATTERNS[type][0].length;
+            const h = FIGURE_PATTERNS[type].length;
+            const w = FIGURE_PATTERNS[type][0].length;
 
-            let i = randomIdx(this.rowsCount - w);
-            let j = randomIdx(this.colsCount - h);
+            let i = 0;
+            let j = randomIdx(this.colsCount - w);
 
             let possible = true;
-            for (let di = 0; di < w; di++) {
-                for (let dj = 0; dj < h; dj++) {
+            for (let di = 0; di < h; di++) {
+                for (let dj = 0; dj < w; dj++) {
                     let y = i + di;
                     let x = j + dj;
                     if (x < 0 || y < 0 || x >= this.colsCount || y >= this.rowsCount) {
@@ -151,13 +150,14 @@ class InteractiveTiles {
 
             if (!possible) continue;
 
-            for (let di = 0; di < w; di++) {
-                for (let dj = 0; dj < h; dj++) {
+            const randomColor = '#' + rgb2string(...hsl2rgb(Math.random() * 0.10 + 0.52, Math.random() * 0.5 + 0.5, Math.random() * 0.3 + 0.5));
+            for (let di = 0; di < h; di++) {
+                for (let dj = 0; dj < w; dj++) {
                     let y = i + di;
                     let x = j + dj;
 
                     if (FIGURE_PATTERNS[type][di][dj]) {
-                        this.blocks[y][x].color = '#dddddd';
+                        this.blocks[y][x].color = randomColor;
                     }
                 }
             }
@@ -168,30 +168,56 @@ class InteractiveTiles {
         return false;
     }
 
+    shift() {
+        for (let i = this.rowsCount-1 + SAFE_SPACE; i-1 >= 0; i--) {
+            for (let j = this.colsCount-1; j-1 >= 0; j--) {
+                this.blocks[i][j].color = this.blocks[i-1][j].color;
+            }
+        }
+
+        for (let j = this.colsCount-1; j-1 >= 0; j--) {
+            this.blocks[0][j].color = '#ffffff';
+        }
+    }
+
     render() {
+        if (Date.now() - this.lastShiftTime >= SHIFT_RATE) {
+            this.lastShiftTime = Date.now();
+            this.shift();
+        }
+
+        if (Date.now() - this.lastAddedFigureTime >= CREATE_RATE) {
+            this.lastAddedFigureTime = Date.now();
+            this.tryAddElement();
+        }
+        
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         let alpha = Math.round(Math.sin(Date.now() / 100) * 7 + 220).toString(16);
-        console.log(alpha);
         
         for (let i = 0; i < this.rowsCount; i++) {
             for (let j = 0; j < this.colsCount; j++) {
-                this.context.fillStyle = this.blocks[i][j].color + alpha;
+                this.context.fillStyle = this.blocks[SAFE_SPACE + i][j].color + alpha;
                 this.context.fillRect(
                     this.paddingLeft + j * (TILE_WIDTH + TILE_SPACE),
-                    this.paddingTop + (this.rowsCount - 1 - i) * (TILE_WIDTH + TILE_SPACE),
+                    this.paddingTop + i * (TILE_WIDTH + TILE_SPACE),
                     TILE_WIDTH,
                     TILE_WIDTH
                 );
             }
         }
 
-        // requestAnimationFrame(this.render.bind(this));
+        this.animationFrameId = requestAnimationFrame(this.render.bind(this));
+
         // setInterval(this.render.bind(this), 200);
+        // setTimeout(this.render.bind(this), 100);
     }
 
     destroy() {
-        
+        if (this.animationFrameId !== null) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
     }
 }
 

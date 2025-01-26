@@ -1,3 +1,9 @@
+export function rgb2string(r: number, g: number, b: number) {
+  let s = ((r * 256 + g) * 256 + b).toString(16);
+  while (s.length < 6) s = "0" + s;
+  return s;
+}
+
 /**
  * Converts an HSL color value to RGB. Conversion formula
  * adapted from https://en.wikipedia.org/wiki/HSL_color_space.
@@ -7,9 +13,9 @@
  * @param   {number}  h       The hue
  * @param   {number}  s       The saturation
  * @param   {number}  l       The lightness
- * @return  {Array}           The RGB representation
+ * @return  {[number, number, number]}           The RGB representation
  */
-export function hslToRgb(h: number, s: number, l: number): number[] {
+export function hsl2rgb(h: number, s: number, l: number): [number, number, number] {
     let r: number, g: number, b: number;
 
     if (s === 0) {
