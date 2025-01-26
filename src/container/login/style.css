@@ -43,3 +43,15 @@
   justify-content: center;
 }
 
+.login-sn{
+  /* background: #1976d2; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; 
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+}
