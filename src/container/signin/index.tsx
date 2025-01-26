@@ -8,8 +8,32 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
 
 const SigninPage = (): React.ReactElement => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
+  const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
+  const handleMouseDownRepeatPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  const handleMouseUpRepeatPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
   
   return (
     <div className='login-page'>
@@ -32,20 +56,52 @@ const SigninPage = (): React.ReactElement => {
               className="form-input"
               autoComplete="current-login"
             />
-            <TextField
-              id="outlined-password-input"
-              label="Пароль"
-              type="Password"
-              className="form-input"
-              autoComplete="current-password"
-            />
-            <TextField
-            id="outlined-password-input"
-            label="Повторите пароль"
-            type="Password"
-            className="form-input"
-            autoComplete="current-password"
-            />
+            <FormControl>
+            <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword ? 'hide the password' : 'display the password'
+                      }
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      onMouseUp={handleMouseUpPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Пароль"
+              />
+            </FormControl>            
+            <FormControl>
+            <InputLabel htmlFor="outlined-adornment-password">Повторите пароль</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showRepeatPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showRepeatPassword ? 'hide the password' : 'display the password'
+                      }
+                      onClick={handleClickShowRepeatPassword}
+                      onMouseDown={handleMouseDownRepeatPassword}
+                      onMouseUp={handleMouseUpRepeatPassword}
+                      edge="end"
+                    >
+                      {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Повторите пароль"
+              />
+            </FormControl>
           </Stack>  
         </div>
         <Box className='box-wrapper'>

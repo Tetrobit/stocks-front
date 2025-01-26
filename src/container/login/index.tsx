@@ -10,15 +10,23 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
+
 const LoginPage = (): React.ReactElement => {
-  // const [showPassword, setShowPassword] = React.useState(false);
-  // const handleClickShowPassword = () => setShowPassword((show) => !show);
-  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  // };
-  // const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  // };
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   // const user = {
   //   username: 'test',
@@ -33,44 +41,39 @@ const LoginPage = (): React.ReactElement => {
           <Stack spacing={2}>
             <TextField
               id="outlined-login-input"
-              label="Login"
+              label="Логин"
               type="Login"
               className="form-input"
               autoComplete="current-login"
             />
-            <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            className="form-input"
-            autoComplete="current-password"
-            />
+            <FormControl>
+            <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword ? 'hide the password' : 'display the password'
+                      }
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      onMouseUp={handleMouseUpPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Пароль"
+              />
+        </FormControl>
           </Stack>  
         </div>
         <Box className='box-wrapper'>
               <Button variant="outlined" className='login-button'>Войти</Button>
         </Box>
-        {/* <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? 'hide the password' : 'display the password'
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          /> */}
           <Divider />
           <div className='login-signup-text'>Нет аккаунта? 
             <Link to={getNavigationValue('tetrobit-stocks.signin')}>Зарегистрироваться</Link>
