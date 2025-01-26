@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getNavigationValue } from '@brojs/cli';
 import './style.css';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './style.css';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -22,7 +24,6 @@ const LoginPage = (): React.ReactElement => {
   //   username: 'test',
   //   password: 'test'
   // };
-
   return (
     <div className='login-page'>
       <div className='login-container'>
@@ -71,7 +72,9 @@ const LoginPage = (): React.ReactElement => {
             label="Password"
           /> */}
           <Divider />
-          <div className='login-signup-text'>Нет аккаунта? <Link to='/register'>Зарегистрироваться</Link></div>
+          <div className='login-signup-text'>Нет аккаунта? 
+            <Link to={getNavigationValue('tetrobit-stocks.signin')}>Зарегистрироваться</Link>
+          </div>
 
           <div className='login-sn'>
             <div className='login-signup-text'>Авторизоваться через социальные сети</div>

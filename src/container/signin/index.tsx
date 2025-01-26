@@ -53,7 +53,7 @@ const SigninPage = (): React.ReactElement => {
         </Box>
           <Divider />
           <div className='login-signup-text'>Есть аккаунт? 
-            <Link to=''>Войти</Link>
+            <Link to={getNavigationValue('tetrobit-stocks.login')}>Войти</Link>
           </div>
 
           <div className='login-sn'>
