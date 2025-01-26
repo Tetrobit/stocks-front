@@ -1,36 +1,66 @@
-.converter {
-  padding-top: 100px;
+/* styles.css */
+.container {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.nav {
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.converter .converter-rotator {
-  margin: 0 10px;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 20px;
 }
 
-.converter .converter-field {
-  font-family: 'Montserrat';
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li {
+  cursor: pointer;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.balance {
+  margin-top: 20px;
+}
+
+.balance p {
+  margin: 5px 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
   padding: 10px;
-  width: 300px;
-}
-
-.converter .converter-field h3 {
-  font-weight: 600;
-  text-align: center;
-}
-
-.converter .converter-field .converter-field-currency {
-  margin-top: 10px;
-}
-
-@media(max-width: 750px) {
-  .converter {
-    flex-direction: column;
-    padding-top: 30px;
-  }
-
-  .converter .converter-rotator {
-    margin: 10px 0;
-  } 
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+  width: 200px;
 }
