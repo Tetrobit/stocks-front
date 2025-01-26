@@ -21,6 +21,7 @@ const UserProfile: React.FC = () => {
   const handleTopUpBalance = () => {
     // Логика пополнения баланса
     console.log('Пополнить баланс');
+    navigate(getNavigationValue('tetrobit-stocks.top-up'));
   };
 
   const handleTransfer = () => {

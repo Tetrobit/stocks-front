@@ -64,7 +64,7 @@ const TransferPage: React.FC = () => {
         </div>
         <div className="input-group">
           <label>Укажите Сумму перевода:</label>
-          <TextField id="outlined-basic" label="Сумма" variant="outlined" onChange={handleAmountChange}/>
+          <TextField id="outlined-basic" label="RUB" variant="outlined" onChange={handleAmountChange}/>
         </div>
           <Stack spacing={2} direction="row" className="buttons">
             <Button onClick={handleTransfer} variant="contained">Перевести</Button>
