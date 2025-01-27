@@ -7,9 +7,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
-import CheckIcon from '@mui/icons-material/Check'; // Import CheckIcon
+import CheckIcon from '@mui/icons-material/Check';
 import './style.css';
-import { getNavigationValue } from '@brojs/cli'; // Make sure to have a CSS file for styles
+import { getNavigationValue } from '@brojs/cli';
 
 const TopUpPage = (): React.ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
