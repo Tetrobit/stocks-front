@@ -24,7 +24,7 @@ const NotFoundPage = (): React.ReactElement => {
     <div className="not-found-container">
       <p>О нет! Этого нет на</p>
       <img src={logoImage} className="image"/>
-      <Button onClick={handleLogout} variant="contained">Вернуться на главную</Button>
+      {/*<Button onClick={handleLogout} variant="contained">Вернуться на главную</Button>*/}
     </div>
   );
 };
