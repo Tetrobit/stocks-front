@@ -11,6 +11,7 @@ import { getNavigationValue } from '@brojs/cli';
 import Layout from './components/layout';
 import TransferPage from '../transfer';
 import TopUpPage from '../top-up';
+import NotFoundPage from '../not-found';
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: getNavigationValue('tetrobit-stocks.top-up'),
         element: <TopUpPage />
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />
       }
     ]
   }

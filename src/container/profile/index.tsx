@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 import './style.css';
 
-const UserProfile: React.FC = () => {
+const UserProfile = (): React.ReactElement => {
   const navigate = useNavigate();
   const user = {
     name: 'Вася Пупкин',

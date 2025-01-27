@@ -1,77 +1,71 @@
-
-
-import IconButton from '@mui/material/IconButton';
-import MenuItem from '@mui/material/MenuItem';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom'
-import { getNavigationValue } from '@brojs/cli';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import Alert from '@mui/material/Alert';
-import './style.css';
-import CheckIcon from '@mui/icons-material/Check';
-import { getExRate } from '../../api';
-import { COUNTRIES_ICONS } from '../../constants/countries';
-import { CURRENCIES } from '../../constants/currencies';
-
-
-// index.tsx
-
-
-
-
 // index.tsx
 import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Snackbar } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
+import CheckIcon from '@mui/icons-material/Check'; // Import CheckIcon
+import './style.css';
+import { getNavigationValue } from '@brojs/cli'; // Make sure to have a CSS file for styles
 
-const TopUpPage: React.FC = () => {
+const TopUpPage = (): React.ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showFullScreenLoader, setShowFullScreenLoader] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
-  const [currency, setCurrency] = useState<string>('$');
   const navigate = useNavigate();
+
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
   };
 
-  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrency(e.target.value);
-  };
-
   const handleTopUp = () => {
-    // Логика перевода средств
     setIsLoading(true);
-    // ...
+    setShowFullScreenLoader(true);
+    // Логика перевода средств
+    // Здесь можно добавить вызов API или другую логику
+
     setTimeout(() => {
       setIsLoading(false);
-    }, 10000);
+      setShowFullScreenLoader(false);
+      // Здесь можно добавить логику для отображения успешного пополнения
+    }, 3000);
   };
 
-
   const handleBack = () => {
-    // Логика возврата назад
-    navigate(getNavigationValue('tetrobit-stocks.profile'));
+    navigate(getNavigationValue('tetrobit-stocks.profile')); // Заменить на нужный путь
   };
 
   return (
     <div className="topup-wrapper">
+      {showFullScreenLoader && (
+        <div className="full-screen-loader">
+          <CircularProgress />
+        </div>
+      )}
       <div className="topup">
         <h1>Пополнение валюты</h1>
         <div className="input-group">
           <label>Введите сумму начисления:</label>
-          <TextField id="outlined-basic" label="RUB" variant="outlined" onChange={handleAmountChange}/>
+          <TextField
+            id="outlined-basic"
+            label="RUB"
+            variant="outlined"
+            value={amount}
+            onChange={handleAmountChange}
+          />
         </div>
         <div>
           <Stack spacing={2} direction="row" className="buttons">
-            <Button onClick={handleTopUp} variant="contained">Пополнить баланс</Button>
+            <Button onClick={handleTopUp} variant="contained" disabled={isLoading}>Пополнить баланс</Button>
             <Button onClick={handleBack} variant="contained">Назад</Button>
           </Stack>
         </div>
-        <Snackbar open={isLoading}>
+        <Snackbar open={isLoading} autoHideDuration={5000}>
           <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-            Пополенние произведено успешно.
+            Пополнение произведено успешно.
           </Alert>
         </Snackbar>
       </div>
