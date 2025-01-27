@@ -1,0 +1,59 @@
+.avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.buttons-section{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+h2.user{
+  font-family: "Montserrat";
+  margin: 0;
+}
+.balance{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: "Montserrat";
+}
+p.hidden{
+  font-family: "Montserrat";
+  color: #555;
+}
+
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+}
+
+.name{
+  display: flex;
+  flex-direction: column;
+}
+
+p.big{
+  font-size: 20px;
+  font-family: "Montserrat";
+}

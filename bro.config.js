@@ -18,6 +18,7 @@ module.exports = {
     "tetrobit-stocks.profile": "/tetrobit-stocks/profile",
     "tetrobit-stocks.transfer": "/tetrobit-stocks/transfer",
     "tetrobit-stocks.top-up": "/tetrobit-stocks/top-up",
+    "tetrobit-stocks.trade": "/tetrobit-stocks/trade",
   },
   features: {
     "tetrobit-stocks": {}
