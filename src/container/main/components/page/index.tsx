@@ -13,6 +13,7 @@ const MainPage = (): React.ReactElement => {
       </div>
       <div className="background">
         <InteractiveTiles />
+        <div className="background-blur"></div>
       </div>
     </div>
   );
