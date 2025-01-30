@@ -28,6 +28,11 @@ const LoginPage = (): React.ReactElement => {
     event.preventDefault();
   };
 
+
+  const onClick = () => {
+    
+  };
+
   // const user = {
   //   username: 'test',
   //   password: 'test'
@@ -72,7 +77,7 @@ const LoginPage = (): React.ReactElement => {
           </Stack>  
         </div>
         <Box className='box-wrapper'>
-              <Button variant="outlined" className='login-button'>Войти</Button>
+              <Button onClick={onClick} variant="outlined" className='login-button'>Войти</Button>
         </Box>
           <Divider />
           <div className='login-signup-text'>Нет аккаунта? 
