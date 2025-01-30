@@ -4,7 +4,7 @@
     "main": "./src/index.tsx",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "brojs server --port=8099 --with-open-browser",
+        "start": "brojs server --port=80 --with-open-browser",
         "build": "npm run clean && brojs build --dev",
         "build:prod": "npm run clean && brojs build",
         "clean": "rimraf dist",
@@ -18,12 +18,16 @@
         "@brojs/cli": "^1.8.4",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
+        "@mui/base": "^5.0.0-beta.69",
         "@mui/icons-material": "^6.3.0",
         "@mui/material": "^6.3.0",
+        "@reduxjs/toolkit": "^2.5.1",
+        "@vkid/sdk": "^2.4.1",
         "chart.js": "^4.4.7",
         "express": "^4.19.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-redux": "^9.2.0",
         "react-router-dom": "^6.28.0"
     },
     "devDependencies": {

@@ -23,6 +23,8 @@ module.exports = {
     "tetrobit-stocks": {}
   },
   config: {
-    // "project.api": "/api",
+    "tetrobit-stocks.api": "http://localhost:8000",
+    "tetrobit-stocks.vkid-app": 52984994,
+    "tetrobit-stocks.vkid-redirect-url": "http://localhost",
   },
 };

@@ -22,6 +22,11 @@ header.app-header .app-header-nav {
     display: flex;
 }
 
+header.app-header .app-header-nav-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 header.app-header .app-header-drawer {
     display: none;
 }
