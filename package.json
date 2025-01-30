@@ -4,7 +4,7 @@
     "main": "./src/index.tsx",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "brojs server --port=8099 --with-open-browser",
+        "start": "brojs server --port=80 --with-open-browser",
         "build": "npm run clean && brojs build --dev",
         "build:prod": "npm run clean && brojs build",
         "clean": "rimraf dist",
