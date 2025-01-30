@@ -16,8 +16,7 @@ import IconButton from '@mui/material/IconButton';
 import './style.css';
 
 import logoImage from '../../../../../assets/images/logo.svg';
-import AccountMenu from './components/account';
-import AuthButton from './components/auth-button';
+import Account from './components/account';
 
 const navigations: Array<{ name: string; href: string }> = [
   {
@@ -102,8 +101,7 @@ const Header = (): React.ReactElement => {
             { DrawerList }
           </Drawer>
         </div>
-        { user && <AccountMenu/> }
-        { !user && <AuthButton /> }
+        <Account />
       </div>
     </header>
   );

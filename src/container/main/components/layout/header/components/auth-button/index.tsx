@@ -5,8 +5,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import { getConfigValue } from '@brojs/cli';
 
 import './style.css';
+import { useAppDispatch } from '../../../../../../../store/hooks';
+import { auth } from '../../../../../../../store/reducers/auth';
 
 export default function AuthButton() {
+  const dispatch = useAppDispatch();
   const [oneTap, setOneTap] = React.useState(null);
   
   const handleClick = () => {
@@ -33,9 +36,17 @@ export default function AuthButton() {
       ],
     });
 
-    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, (data) => {
-      console.log(data);
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (data) => {
+      const response = await VKID.Auth.exchangeCode(data.code, data.device_id);
+      const authData = {
+        access_token: response.access_token,
+        refresh_token: response.refresh_token,
+      };
+
+      dispatch(auth(authData));
+
       floatingOneTap.close();
+      setOneTap(null);
     });
 
     floatingOneTap.on(VKID.FloatingOneTapInternalEvents.NOT_AUTHORIZED, (data) => {

@@ -8,6 +8,13 @@ export const checkAuth = createAsyncThunk(
   }
 );
 
+export const auth = createAsyncThunk(
+  'auth',
+  async (data) => {
+    return await authService.auth(data);
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {

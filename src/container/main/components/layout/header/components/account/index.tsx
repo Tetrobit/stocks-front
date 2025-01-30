@@ -11,16 +11,38 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { useAppDispatch, useAppSelector } from '../../../../../../../store/hooks';
+import { checkAuth } from '../../../../../../../store/reducers/auth';
+import AuthButton from '../auth-button';
+import { Skeleton } from '@mui/material';
 
 export default function AccountMenu() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.authReducer);
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  React.useLayoutEffect(() => {
+    dispatch(checkAuth());
+  }, []);
+
+  if (user.status == 'guest') {
+    return <AuthButton />;
+  }
+
+  if (user.status == 'checking') {
+    return <Skeleton sx={{ marginLeft: 1 }} variant='circular' width={40} height={40} />;
+  }
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
