@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '../../container/service/auth';
 
 export const checkAuth = createAsyncThunk(
-  'auth/check',
+  'auth.check',
   async () => {
     return await authService.check();
   }
@@ -12,6 +12,13 @@ export const auth = createAsyncThunk(
   'auth',
   async (data, _thunkApi) => {
     return await authService.auth(data);
+  }
+);
+
+export const logout = createAsyncThunk(
+  'auth.logout',
+  async () => {
+    return await authService.logout();
   }
 );
 
@@ -30,7 +37,16 @@ const authSlice = createSlice({
         state.status = 'checking';
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
-        state.status = action.payload ? 'authorized' : 'guest';
+        if (action.payload.ok) {
+          state.status = 'authorized';
+          const user = action.payload.response;
+          state.first_name = user.first_name;
+          state.last_name = user.last_name;
+          state.photo = user.photo;
+        }
+        else {
+          state.status = 'guest';
+        }
       })
       .addCase(checkAuth.rejected, (state, action) => {
         state.status = 'guest';
@@ -45,6 +61,18 @@ const authSlice = createSlice({
         state.photo = action.payload.photo;
       })
       .addCase(auth.rejected, (state, action) => {
+        state.status = 'guest';
+      })
+      .addCase(logout.pending, (state) => {
+        state.status = 'checking';
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.status = 'guest';
+        state.first_name = "";
+        state.last_name = "";
+        state.photo = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
         state.status = 'guest';
       });
   },
