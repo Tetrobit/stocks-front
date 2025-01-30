@@ -1,0 +1,15 @@
+.auth-button-wrapper {
+    margin-left: 10px;
+}
+
+.auth-modal {
+    position: absolute;
+    width: 350px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 30px;
+    padding: 20px;
+}

@@ -16,7 +16,8 @@ import IconButton from '@mui/material/IconButton';
 import './style.css';
 
 import logoImage from '../../../../../assets/images/logo.svg';
-import AccountMenu from './account';
+import AccountMenu from './components/account';
+import AuthButton from './components/auth-button';
 
 const navigations: Array<{ name: string; href: string }> = [
   {
@@ -102,7 +103,7 @@ const Header = (): React.ReactElement => {
           </Drawer>
         </div>
         { user && <AccountMenu/> }
-        { !user && <Button sx={{marginLeft: '10px'}} onClick={() => setUser(true)} variant='contained'>Войти</Button> }
+        { !user && <AuthButton /> }
       </div>
     </header>
   );
