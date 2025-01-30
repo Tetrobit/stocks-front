@@ -56,3 +56,9 @@
     position: absolute;
     z-index: -1;
 }
+
+@media(max-width: 400px) {
+    .greeting {
+        height: calc(100vh - 70px);
+    }
+}
