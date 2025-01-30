@@ -55,7 +55,9 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 40, height: 40, background: '#5399f4' }}>MА</Avatar>
+            <Avatar sx={{ width: 40, height: 40, background: '#5399f4' }}>
+              {user.first_name.substr(0, 1) + user.last_name.substr(0, 1)}
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -97,18 +99,9 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar src={user.photo} /> {user.last_name } { user.first_name }
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />

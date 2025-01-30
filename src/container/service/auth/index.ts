@@ -8,7 +8,7 @@ class AuthService {
     
     async auth(data) {
         const response = await network.post('/api/auth', data);
-        return response.data;
+        return response.data.response;
     }
 }
 

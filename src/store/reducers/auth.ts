@@ -10,7 +10,7 @@ export const checkAuth = createAsyncThunk(
 
 export const auth = createAsyncThunk(
   'auth',
-  async (data) => {
+  async (data, _thunkApi) => {
     return await authService.auth(data);
   }
 );
@@ -18,10 +18,10 @@ export const auth = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: null,
-    token: null,
+    first_name: '',
+    last_name: '',
+    photo: null,
     status: 'idle',
-    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -33,6 +33,18 @@ const authSlice = createSlice({
         state.status = action.payload ? 'authorized' : 'guest';
       })
       .addCase(checkAuth.rejected, (state, action) => {
+        state.status = 'guest';
+      })
+      .addCase(auth.pending, (state) => {
+        state.status = 'authorizing';
+      })
+      .addCase(auth.fulfilled, (state, action) => {
+        state.status = action.payload ? 'authorized' : 'guest';
+        state.first_name = action.payload.first_name;
+        state.last_name = action.payload.last_name;
+        state.photo = action.payload.photo;
+      })
+      .addCase(auth.rejected, (state, action) => {
         state.status = 'guest';
       });
   },
