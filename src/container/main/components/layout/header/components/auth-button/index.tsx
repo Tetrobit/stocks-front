@@ -1,52 +1,61 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import * as VKID from '@vkid/sdk';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import LoginIcon from '@mui/icons-material/Login';
+import { getConfigValue } from '@brojs/cli';
 
 import './style.css';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
 export default function AuthButton() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [oneTap, setOneTap] = React.useState(null);
+  
+  const handleClick = () => {
+    if (oneTap) {
+      oneTap.close();
+    }
+
+    VKID.Config.init({
+      app: parseInt(getConfigValue('tetrobit-stocks.vkid-app')),
+      redirectUrl: getConfigValue('tetrobit-stocks.vkid-redirect-url'),
+      responseMode: VKID.ConfigResponseMode.Callback,
+      source: VKID.ConfigSource.LOWCODE,
+    });
+
+    const floatingOneTap = new VKID.FloatingOneTap();
+
+    floatingOneTap.render({
+      appName: 'VK ID SDK Demo',
+      showAlternativeLogin: true,
+      oauthList: [
+        VKID.OAuthName.VK,
+        VKID.OAuthName.OK,
+        VKID.OAuthName.MAIL,
+      ],
+    });
+
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, (data) => {
+      console.log(data);
+      floatingOneTap.close();
+    });
+
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.NOT_AUTHORIZED, (data) => {
+      setOneTap(null);
+    });
+
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.SHOW_FULL_AUTH, (data) => {
+      setOneTap(null);
+    });
+
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.START_AUTHORIZE, (data) => {
+      setOneTap(null);
+    });
+
+    setOneTap(floatingOneTap);
+  }
 
   return (
     <div className="auth-button-wrapper">
-      <IconButton onClick={handleOpen} color='primary'><LoginIcon/></IconButton>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={open}>
-            <div className="auth-modal">
-            </div>
-        </Fade>
-      </Modal>
+      <IconButton onClick={handleClick} color='primary'><LoginIcon/></IconButton>
     </div>
   );
 }
