@@ -24,7 +24,7 @@ export default function AuthButton() {
     const floatingOneTap = new VKID.FloatingOneTap();
 
     floatingOneTap.render({
-      appName: 'VK ID SDK Demo',
+      appName: 'Tetrobit',
       showAlternativeLogin: true,
       oauthList: [
         VKID.OAuthName.VK,
