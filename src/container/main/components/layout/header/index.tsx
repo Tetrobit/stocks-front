@@ -10,14 +10,14 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Ma\il';
 import IconButton from '@mui/material/IconButton';
 
 import './style.css';
 
 import logoImage from '../../../../../assets/images/logo.svg';
+import AccountMenu from './components/account';
+import AuthButton from './components/auth-button';
 
 const navigations: Array<{ name: string; href: string }> = [
   {
@@ -31,25 +31,19 @@ const navigations: Array<{ name: string; href: string }> = [
   {
     name: 'Динамика',
     href: getNavigationValue('tetrobit-stocks.history')
-  },
-  {
-    name: 'Войти',
-    href: getNavigationValue('tetrobit-stocks.login')
-  },
-  {
-    name: 'Профиль',
-    href: getNavigationValue('tetrobit-stocks.profile')
   }
 ];
 
 const Header = (): React.ReactElement => {
   const forceUpdate = React.useReducer(x => x + 1, 0)[1];
 
-  const [open, setOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [user, setUser] = React.useState(false);
+
   const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+    setDrawerOpen(newOpen);
   }
 
   const handleOpenPath = (path) => () => {
@@ -85,27 +79,31 @@ const Header = (): React.ReactElement => {
           <img src={logoImage} />
         </Link>
       </div>
-      <nav className='app-header-nav'>
-        {navigations.map((item) => {
-          const chosen = (window.location.pathname == item.href);
-          return (
-            <div key={`${item.href}-${chosen ? '0' : '1'}`} className='app-header-nav-item'>
-              <Link onClick={() => forceUpdate()} to={item.href}>
-                <Button key={item.name} variant={chosen ? 'contained' : 'outlined'}>
-                  {item.name}
-                </Button>
-              </Link>
-            </div>
-          );
-        })}
-      </nav>
-      <div className='app-header-drawer'>
-        <IconButton onClick={toggleDrawer(true)}>
-          <MenuIcon />
-        </IconButton>
-        <Drawer open={open} onClose={toggleDrawer(false)}>
-          { DrawerList }
-        </Drawer>
+      <div className="app-header-nav-wrapper">
+        <nav className='app-header-nav'>
+          {navigations.map((item) => {
+            const chosen = (window.location.pathname == item.href);
+            return (
+              <div key={`${item.href}-${chosen ? '0' : '1'}`} className='app-header-nav-item'>
+                <Link onClick={() => forceUpdate()} to={item.href}>
+                  <Button key={item.name} variant={chosen ? 'contained' : 'outlined'}>
+                    {item.name}
+                  </Button>
+                </Link>
+              </div>
+            );
+          })}
+        </nav>
+        <div className='app-header-drawer'>
+          <IconButton onClick={toggleDrawer(true)}>
+            <MenuIcon />
+          </IconButton>
+          <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
+            { DrawerList }
+          </Drawer>
+        </div>
+        { user && <AccountMenu/> }
+        { !user && <AuthButton /> }
       </div>
     </header>
   );
