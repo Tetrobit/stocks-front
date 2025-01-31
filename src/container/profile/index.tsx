@@ -6,36 +6,14 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 import './style.css';
-
-export const getUserData = (): Promise<{ name: string; uid: string; balance: number}> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        name: 'Вася Пупкин',
-        uid: '224729875',
-        balance: 456457,
-      });
-    }, 1000); // 1 секунда задержки
-  });
-};
+import { useAppSelector } from '../../store/hooks';
+import { Avatar } from '@mui/material';
 
 const UserProfile = (): React.ReactElement => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<{ name: string; uid: string; balance: number } | null>(null);
+  const user = useAppSelector(state => state.authReducer);
+  // const [user, setUser] = useState<{ name: string; uid: string; balance: number } | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    // Имитация загрузки данных с сервера
-    getUserData()
-      .then((data) => {
-        setUser(data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-        // Здесь можно добавить обработку ошибок
-      });
-  }, []);
 
   const handleTopUpBalance = () => {
     // Логика пополнения баланса
@@ -56,22 +34,19 @@ const UserProfile = (): React.ReactElement => {
 
   return (
     <div className="profile-wrapper">
-      {isLoading && (
-        <div className="full-screen-loader">
-          <CircularProgress />
-        </div>
-      )}
       <div className="profile">
         <div className="profile-section">
           <div className="info">
-            <div className="avatar"></div>
+            <div className="avatar">
+              <img src={user.photo} />
+            </div>
             <div className="name">
-              <h2 className="user">{user?.name}</h2>
-              <p className="hidden">Uid: {user?.uid}</p>
+              <h2 className="user">{user?.last_name} {user?.first_name}</h2>
+              <p className="hidden">Uid: 10</p>
             </div>
           </div>
           <div className="balance">
-            <p className={"big"}>Ваш баланс: {user?.balance} RUB</p>
+            <p className={"big"}>Ваш баланс: 10 RUB</p>
             <p></p>
           </div>
         </div>
