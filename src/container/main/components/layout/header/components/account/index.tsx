@@ -39,6 +39,11 @@ export default function AccountMenu() {
     navigate(getNavigationValue('tetrobit-stocks.main'));
   }
 
+  const handleProfile = () => {
+    handleClose();
+    navigate(getNavigationValue('tetrobit-stocks.profile'));
+  }
+
   React.useLayoutEffect(() => {
     dispatch(checkAuth());
   }, []);
@@ -106,16 +111,10 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfile}>
           <Avatar src={user.photo} />{ user.last_name } { user.first_name }
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Профиль
-        </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
