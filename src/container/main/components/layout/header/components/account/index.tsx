@@ -56,6 +56,10 @@ export default function AccountMenu() {
     return <Skeleton sx={{ marginLeft: 1 }} variant='circular' width={40} height={40} />;
   }
 
+  if (user.status == 'authorizing') {
+    return <Skeleton sx={{ marginLeft: 1 }} variant='circular' width={40} height={40} />;
+  }
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
