@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as VKID from '@vkid/sdk';
 import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
+import pkceChallenge from 'pkce-challenge';
 import { getConfigValue } from '@brojs/cli';
 
 import './style.css';
@@ -12,16 +13,18 @@ export default function AuthButton() {
   const dispatch = useAppDispatch();
   const [oneTap, setOneTap] = React.useState(null);
   
-  const handleClick = () => {
+  const handleClick = async () => {
     if (oneTap) {
       oneTap.close();
     }
+
+    const { code_challenge, code_verifier } = await pkceChallenge();
 
     VKID.Config.init({
       app: parseInt(getConfigValue('tetrobit-stocks.vkid-app')),
       redirectUrl: getConfigValue('tetrobit-stocks.vkid-redirect-url'),
       responseMode: VKID.ConfigResponseMode.Callback,
-      source: VKID.ConfigSource.LOWCODE,
+      codeChallenge: code_challenge,
     });
 
     const floatingOneTap = new VKID.FloatingOneTap();
@@ -37,27 +40,24 @@ export default function AuthButton() {
     });
 
     floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (data) => {
-      const response = await VKID.Auth.exchangeCode(data.code, data.device_id);
-      const authData = {
-        access_token: response.access_token,
-        refresh_token: response.refresh_token,
-      };
+      data.code_verifier = code_verifier;
+      data.redirect_uri = getConfigValue('tetrobit-stocks.vkid-redirect-url');
 
-      dispatch(auth(authData));
+      dispatch(auth(data));
 
       floatingOneTap.close();
       setOneTap(null);
     });
 
-    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.NOT_AUTHORIZED, (data) => {
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.NOT_AUTHORIZED, (..._args) => {
       setOneTap(null);
     });
 
-    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.SHOW_FULL_AUTH, (data) => {
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.SHOW_FULL_AUTH, (..._args) => {
       setOneTap(null);
     });
 
-    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.START_AUTHORIZE, (data) => {
+    floatingOneTap.on(VKID.FloatingOneTapInternalEvents.START_AUTHORIZE, (..._args) => {
       setOneTap(null);
     });
 
