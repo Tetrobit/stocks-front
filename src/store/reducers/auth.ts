@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { authService } from '../../container/service/auth';
+import { authService } from '../../service/auth';
 
 export const checkAuth = createAsyncThunk(
   'auth.check',
@@ -25,6 +25,7 @@ export const logout = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
+    id: null,
     first_name: '',
     last_name: '',
     photo: null,
@@ -38,8 +39,9 @@ const authSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         if (action.payload.ok) {
-          state.status = 'authorized';
           const user = action.payload.response;
+          state.status = 'authorized';
+          state.id = user.id;
           state.first_name = user.first_name;
           state.last_name = user.last_name;
           state.photo = user.photo;
@@ -55,6 +57,7 @@ const authSlice = createSlice({
         state.status = 'authorizing';
       })
       .addCase(auth.fulfilled, (state, action) => {
+        state.id = action.payload.id;
         state.status = action.payload ? 'authorized' : 'guest';
         state.first_name = action.payload.first_name;
         state.last_name = action.payload.last_name;

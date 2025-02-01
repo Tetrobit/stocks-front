@@ -42,7 +42,7 @@ const UserProfile = (): React.ReactElement => {
             </div>
             <div className="name">
               <h2 className="user">{user?.last_name} {user?.first_name}</h2>
-              <p className="hidden">Uid: 10</p>
+              <p className="hidden">Uid: { user.id }</p>
             </div>
           </div>
           <div className="balance">
