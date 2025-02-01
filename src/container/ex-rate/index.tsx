@@ -9,6 +9,7 @@ import { COUNTRIES_ICONS } from '../../constants/countries';
 import { CURRENCIES } from '../../constants/currencies';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDaily } from '../../store/reducers/cbr';
+import { FormControl } from '@mui/material';
 
 const ExRatePage = (): React.ReactElement => {
 
@@ -23,6 +24,7 @@ const ExRatePage = (): React.ReactElement => {
       const price = parseFloat(cbr.daily_course[currency].value) / parseFloat(info.value);
       const value = price.toFixed(4);
       const name = info.name;
+      if (cur == currency) return null;
       return (
         <div key={cur} className='currency-info'>
           <div className='currency-price-info'>
@@ -54,11 +56,17 @@ const ExRatePage = (): React.ReactElement => {
         <Select
           value={currency}
           onChange={handleChange}
+          style={{
+            maxWidth: 'calc(100vw - 130px)',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'normal', 
+          }}
           MenuProps={{
             slotProps: {
               paper: {
                 style: {
-                  // maxHeight: 400
+                  maxHeight: 'calc(70vh - 100px)',
+                  maxWidth: 'calc(100vw - 40px)',
                 }
               }
             }
@@ -70,7 +78,9 @@ const ExRatePage = (): React.ReactElement => {
               <MenuItem key={cur} value={cur}>
                 <div className='currency-item'>
                   <img width="30" src={COUNTRIES_ICONS[cur] ?? COUNTRIES_ICONS['UNKNOWN']} alt={name} />
-                  <span>{name}</span>
+                  <div className='currency-name'>
+                    <span>{name}</span>
+                  </div>
                 </div>
               </MenuItem>
             );
