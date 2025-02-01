@@ -8,7 +8,7 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 import './style.css';
 
-import CurrencyChart from './components/currency_chart';
+import CurrencyChart from './components/currency-chart';
 
 import { COUNTRIES_ICONS } from '../../constants/countries';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
