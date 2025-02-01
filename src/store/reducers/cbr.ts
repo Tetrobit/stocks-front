@@ -20,7 +20,9 @@ interface CbrState {
 
 const initialState: CbrState = {
   daily_status: 'idle',
-  daily_course: {},
+  daily_course: {
+    'RUB': { name: 'Рубль', value: '1' },
+  },
 };
 
 const authSlice = createSlice({
@@ -36,7 +38,7 @@ const authSlice = createSlice({
         if (action.payload.ok) {
           const response = action.payload.response;
           state.daily_status = 'loaded';
-          state.daily_course = response;
+          state.daily_course = {...state.daily_course, ...response};
         }
         else {
           state.daily_status = 'failed';
