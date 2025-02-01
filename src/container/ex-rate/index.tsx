@@ -10,6 +10,7 @@ import { CURRENCIES } from '../../constants/currencies';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDaily } from '../../store/reducers/cbr';
 import { FormControl } from '@mui/material';
+import { loadOff, loadOn } from '../../store/reducers/loading';
 
 const ExRatePage = (): React.ReactElement => {
 
@@ -42,9 +43,13 @@ const ExRatePage = (): React.ReactElement => {
   
     React.useEffect(() => {
       if (cbr.daily_status == 'idle') {
+        dispatch(loadOn(10000));
         dispatch(getDaily());
       }
-    }, []);
+      else if (cbr.daily_status == 'loaded') {
+        dispatch(loadOff(1500));
+      }
+    }, [cbr.daily_status]);
   
   const handleChange = (event: SelectChangeEvent) => {
     setCurrency(event.target.value);

@@ -13,6 +13,7 @@ import CurrencyChart from './components/currency-chart';
 import { COUNTRIES_ICONS } from '../../constants/countries';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDaily } from '../../store/reducers/cbr';
+import { loadOff, loadOn } from '../../store/reducers/loading';
 
 const HistoryPage = (): React.ReactElement => {
 
@@ -33,9 +34,13 @@ const HistoryPage = (): React.ReactElement => {
 
   React.useEffect(() => {
     if (cbr.daily_status == 'idle') {
+      dispatch(loadOn(10000));
       dispatch(getDaily());
     }
-  }, []);
+    else if (cbr.daily_status == 'loaded') {
+      dispatch(loadOff(2000));
+    }
+  }, [cbr.daily_status]);
 
   if (cbr.daily_status != 'loaded') {
     return null;

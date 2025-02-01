@@ -15,6 +15,7 @@ import { COUNTRIES_ICONS } from '../../constants/countries';
 import { CURRENCIES } from '../../constants/currencies';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDaily } from '../../store/reducers/cbr';
+import { loadOff, loadOn } from '../../store/reducers/loading';
 
 const ConverterPage = (): React.ReactElement => {
   
@@ -53,18 +54,20 @@ const ConverterPage = (): React.ReactElement => {
 
   React.useEffect(() => {
     if (cbr.daily_status == 'idle') {
+      dispatch(loadOn(10000));
       dispatch(getDaily());
     }
   }, []);
 
   React.useEffect(() => {
     if (cbr.daily_status == 'loaded') {
+      dispatch(loadOff(1000));
       setPrices([1, parseFloat(cbr.daily_course[currencies[0]].value) / parseFloat(cbr.daily_course[currencies[1]].value)]);
     }
   }, [cbr.daily_status]);
 
   if (cbr.daily_status != 'loaded') {
-    return <div>loading...</div>
+    return null;
   }
 
   return (

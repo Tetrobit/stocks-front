@@ -1,11 +1,13 @@
 import React from "react";
 import { CurrencyChartProps } from ".";
-import { useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { date2str } from "../../../../utils/date";
 import { cbrService } from "../../../../service/cbr";
+import { loadOff, loadOn } from "../../../../store/reducers/loading";
 
 export const useDynamic = (props: CurrencyChartProps) => {
     const cbr = useAppSelector(state => state.cbrReducer);
+    const dispatch = useAppDispatch();
 
     const [data, setData] = React.useState({
         labels: [],
@@ -14,6 +16,7 @@ export const useDynamic = (props: CurrencyChartProps) => {
     
     React.useLayoutEffect(() => {
         (async() => {
+            dispatch(loadOn(20000));
             let labels = [];
             let data = [];
 
@@ -60,6 +63,7 @@ export const useDynamic = (props: CurrencyChartProps) => {
                 }
             }
 
+            dispatch(loadOff(1000));
             setData({ labels, data });
         })();
     }, [props.currencyBuy, props.currencySell]);
