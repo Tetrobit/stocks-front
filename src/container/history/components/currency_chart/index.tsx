@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Chart from 'chart.js/auto';
-import { getHistory } from '../../api';
+import { useDynamic } from './hooks';
 
 export type CurrencyChartProps = {
     currencyBuy: string;
@@ -9,34 +9,13 @@ export type CurrencyChartProps = {
 };
 
 const CurrencyChart = (props: CurrencyChartProps) => {
+    const { labels, data } = useDynamic(props);
     const canvasRef = React.useRef<HTMLCanvasElement>(null)
     
     React.useLayoutEffect(() => {
-        // Construct chart
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+        if (!data.length) return;
 
-        let labels = [];
-        let data = [];
-
-        {
-            let historyBuyCur = getHistory(props.currencyBuy)
-            let historySellCur = getHistory(props.currencySell)
-
-            let dictHistoryBuy = {}
-            for (let record of historyBuyCur) {
-                dictHistoryBuy[record[0]] = record[1];
-            }
-
-            for (let record of historySellCur) {
-                if (record[0] in dictHistoryBuy) {
-                    labels.push(record[0]);
-                    data.push(record[1] / dictHistoryBuy[record[0]]);
-                }
-            }
-        }
-
-        const chart = new Chart(canvas, {
+        const chart = new Chart(canvasRef.current, {
             type: 'line',
             data: {
                 labels,
@@ -54,7 +33,11 @@ const CurrencyChart = (props: CurrencyChartProps) => {
             // Dispose the instance
             chart.destroy();
         }
-    }, [props.currencyBuy, props.currencySell]);
+    }, [props.currencyBuy, props.currencySell, data]);
+
+    if (!data.length) {
+        return <div></div>
+    }
 
     return (
         <React.Fragment>

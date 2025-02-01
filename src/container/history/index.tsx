@@ -8,13 +8,17 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 import './style.css';
 
-import CurrencyChart from './currency_chart';
+import CurrencyChart from './components/currency_chart';
 
-import { isAvailableHistory } from '../../api';
 import { COUNTRIES_ICONS } from '../../constants/countries';
-import { CURRENCIES } from '../../constants/currencies';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getDaily } from '../../store/reducers/cbr';
 
 const HistoryPage = (): React.ReactElement => {
+
+  const cbr = useAppSelector(state => state.cbrReducer);
+  const dispatch = useAppDispatch();
+
   const [currencies, setCurrencies] = React.useState(['RUB', 'USD']);
 
   const handleChangeCurrency = (id: number) => (event: SelectChangeEvent) => {
@@ -25,6 +29,22 @@ const HistoryPage = (): React.ReactElement => {
 
   const handleRotate = () => {
     setCurrencies(currencies.reverse().slice());
+  }
+
+  React.useEffect(() => {
+    if (cbr.daily_status == 'idle') {
+      dispatch(getDaily());
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (cbr.daily_status == 'loaded') {
+      console.log(cbr.daily_course);
+    }
+  }, [cbr.daily_course]);
+
+  if (cbr.daily_status != 'loaded') {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -39,14 +59,31 @@ const HistoryPage = (): React.ReactElement => {
                     fullWidth={true}
                     value={cur}
                     onChange={handleChangeCurrency(curIndex)}
+                    style={{
+                      maxWidth: 'calc(100vw - 130px)',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'normal', 
+                    }}
+                    MenuProps={{
+                      slotProps: {
+                        paper: {
+                          style: {
+                            maxHeight: 'calc(70vh - 100px)',
+                            maxWidth: 'calc(100vw - 40px)',
+                          }
+                        }
+                      }
+                    }}
                   >
-                    { Object.entries(CURRENCIES).map(([cur, [name, country]]) => {
-                      if (!isAvailableHistory(cur)) return null;
+                    { Object.entries(cbr.daily_course).map(([cur, info]) => {
+                      const name = info.name;
                       return (
                         <MenuItem disabled={currencies.indexOf(cur) != -1} key={cur} value={cur}>
                           <div className='currency-item'>
-                            <img width="20" src={COUNTRIES_ICONS[country]} alt={country} />
-                            <span>{name}</span>
+                            <img width="20" src={COUNTRIES_ICONS[cur] ?? COUNTRIES_ICONS['UNKNOWN']} alt={name} />
+                            <div className='currency-name'>
+                              <span>{name}</span>
+                            </div>
                           </div>
                         </MenuItem>
                       );
