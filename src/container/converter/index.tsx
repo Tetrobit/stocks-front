@@ -13,21 +13,26 @@ import './style.css';
 import { getExRate } from '../../api';
 import { COUNTRIES_ICONS } from '../../constants/countries';
 import { CURRENCIES } from '../../constants/currencies';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getDaily } from '../../store/reducers/cbr';
 
 const ConverterPage = (): React.ReactElement => {
-  const exrates = React.useMemo(() => {
-    return getExRate();
-  }, []);
+  
+  const cbr = useAppSelector(state => state.cbrReducer);
+  const dispatch = useAppDispatch();
 
   const [currencies, setCurrencies] = React.useState(['RUB', 'USD']);
-  const [prices, setPrices] = React.useState([1, exrates[currencies[1]] / exrates[currencies[0]]]);
+  const [prices, setPrices] = React.useState([
+    1,
+    1
+  ]);
 
   const handleChangeCurrency = (id: number) => (event: SelectChangeEvent) => {
     let newCurrencies = currencies.slice();
     newCurrencies[id] = event.target.value;
     setCurrencies(newCurrencies);
 
-    let relation = exrates[newCurrencies[1 - id]] / exrates[newCurrencies[id]];
+    let relation = parseFloat(cbr.daily_course[newCurrencies[1 - id]].value) / parseFloat(cbr.daily_course[newCurrencies[id]].value);
     let newPrices = prices.slice()
     newPrices[1 - id] = newPrices[id] * relation;
     setPrices(newPrices);
@@ -35,8 +40,8 @@ const ConverterPage = (): React.ReactElement => {
 
   const handleChangePrice = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let newPrices = prices.slice()
-    let relation = exrates[currencies[1 - id]] / exrates[currencies[id]];
-    newPrices[id] = parseFloat(event.target.value);
+    let relation = parseFloat(cbr.daily_course[currencies[1 - id]].value) / parseFloat(cbr.daily_course[currencies[id]].value);
+    newPrices[id] = parseFloat(event.target.value ? event.target.value : '0');
     newPrices[1 - id] = newPrices[id] * relation;
     setPrices(newPrices);
   }
@@ -46,10 +51,27 @@ const ConverterPage = (): React.ReactElement => {
     setPrices(prices.reverse().slice());
   }
 
+  React.useEffect(() => {
+    if (cbr.daily_status == 'idle') {
+      dispatch(getDaily());
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (cbr.daily_status == 'loaded') {
+      setPrices([1, parseFloat(cbr.daily_course[currencies[1]].value) / parseFloat(cbr.daily_course[currencies[0]].value)]);
+    }
+  }, [cbr.daily_status]);
+
+  if (cbr.daily_status != 'loaded') {
+    return <div>loading...</div>
+  }
+
   return (
     <div className='converter'>
       { currencies.map((cur, curIndex) => {
-        const cost = (exrates[currencies[1 - curIndex]] / exrates[cur]).toFixed(4);
+        let relation = parseFloat(cbr.daily_course[currencies[1 - curIndex]].value) / parseFloat(cbr.daily_course[cur].value);
+        const cost = (relation).toFixed(4);
         const label = `1 ${cur} = ${cost} ${currencies[1 - curIndex]}`;
         return <React.Fragment key={cur}>
           <Paper elevation={1}>
@@ -73,14 +95,33 @@ const ConverterPage = (): React.ReactElement => {
                   size='small'
                   fullWidth={true}
                   value={cur}
-                  onChange={handleChangeCurrency(curIndex)}
+                  onChange={handleChangeCurrency(curIndex)}                          
+                  style={{
+                    maxWidth: 'calc(100vw - 10px)',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'normal', 
+                  }}
+                  MenuProps={{
+                    slotProps: {
+                      paper: {
+                        style: {
+                          maxHeight: 'calc(60vh - 100px)',
+                          maxWidth: 'calc(100vw - 40px)',
+                        }
+                      }
+                    }
+                  }}
                 >
-                  { Object.entries(CURRENCIES).map(([cur, [name, country]]) => {
+                  { Object.entries(cbr.daily_course).map(([cur, info]) => {
+                    const name = info.name;
+
                     return (
                       <MenuItem disabled={currencies.indexOf(cur) != -1} key={cur} value={cur}>
                         <div className='currency-item'>
-                          <img width="20" src={COUNTRIES_ICONS[country]} alt={country} />
-                          <span>{name}</span>
+                          <img width="20" src={COUNTRIES_ICONS[cur] ?? COUNTRIES_ICONS['UNKNOWN']} alt={name} />
+                          <div className='currency-name'>
+                            <span>{name}</span>
+                          </div>
                         </div>
                       </MenuItem>
                     );
