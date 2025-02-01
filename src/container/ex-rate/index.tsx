@@ -41,15 +41,19 @@ const ExRatePage = (): React.ReactElement => {
     });
   }, [currency, cbr.daily_course]);
   
-    React.useEffect(() => {
-      if (cbr.daily_status == 'idle') {
-        dispatch(loadOn(10000));
-        dispatch(getDaily());
-      }
-      else if (cbr.daily_status == 'loaded') {
-        dispatch(loadOff(1500));
-      }
-    }, [cbr.daily_status]);
+  React.useEffect(() => {
+    if (cbr.daily_status == 'idle') {
+      dispatch(loadOn(10000));
+      dispatch(getDaily());
+    }
+    else if (cbr.daily_status == 'loaded') {
+      dispatch(loadOff(2000));
+    }
+  }, [cbr.daily_status]);
+
+  React.useEffect(() => {
+    dispatch(loadOn(2000));
+  }, []);
   
   const handleChange = (event: SelectChangeEvent) => {
     setCurrency(event.target.value);

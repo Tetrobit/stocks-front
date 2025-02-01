@@ -57,11 +57,14 @@ const ConverterPage = (): React.ReactElement => {
       dispatch(loadOn(10000));
       dispatch(getDaily());
     }
+    else {
+      dispatch(loadOn(2000));
+    }
   }, []);
 
   React.useEffect(() => {
     if (cbr.daily_status == 'loaded') {
-      dispatch(loadOff(1000));
+      dispatch(loadOff(2000));
       setPrices([1, parseFloat(cbr.daily_course[currencies[0]].value) / parseFloat(cbr.daily_course[currencies[1]].value)]);
     }
   }, [cbr.daily_status]);
