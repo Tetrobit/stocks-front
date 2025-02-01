@@ -37,9 +37,14 @@ const authSlice = createSlice({
       })
       .addCase(getDaily.fulfilled, (state, action) => {
         if (action.payload.ok) {
-          const response = action.payload.response;
+          const response: typeof state.daily_course = action.payload.response;
           state.daily_status = 'loaded';
-          state.daily_course = {...state.daily_course, ...response};
+          
+          const valutes = Object.entries(response)
+            .sort((a, b) => a[1].name.localeCompare(b[1].name))
+            .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
+          state.daily_course = {...state.daily_course, ...valutes};
         }
         else {
           state.daily_status = 'failed';
