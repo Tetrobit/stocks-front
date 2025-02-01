@@ -16,7 +16,7 @@ export const useDynamic = (props: CurrencyChartProps) => {
     
     React.useLayoutEffect(() => {
         (async() => {
-            dispatch(loadOn(20000));
+            dispatch(loadOn(60000));
             let labels = [];
             let data = [];
 
