@@ -32,7 +32,7 @@ const ConverterPage = (): React.ReactElement => {
     newCurrencies[id] = event.target.value;
     setCurrencies(newCurrencies);
 
-    let relation = parseFloat(cbr.daily_course[newCurrencies[1 - id]].value) / parseFloat(cbr.daily_course[newCurrencies[id]].value);
+    let relation = parseFloat(cbr.daily_course[newCurrencies[id]].value) / parseFloat(cbr.daily_course[newCurrencies[1 - id]].value);
     let newPrices = prices.slice()
     newPrices[1 - id] = newPrices[id] * relation;
     setPrices(newPrices);
@@ -40,7 +40,7 @@ const ConverterPage = (): React.ReactElement => {
 
   const handleChangePrice = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let newPrices = prices.slice()
-    let relation = parseFloat(cbr.daily_course[currencies[1 - id]].value) / parseFloat(cbr.daily_course[currencies[id]].value);
+    let relation = parseFloat(cbr.daily_course[currencies[id]].value) / parseFloat(cbr.daily_course[currencies[1 - id]].value);
     newPrices[id] = parseFloat(event.target.value ? event.target.value : '0');
     newPrices[1 - id] = newPrices[id] * relation;
     setPrices(newPrices);
@@ -59,7 +59,7 @@ const ConverterPage = (): React.ReactElement => {
 
   React.useEffect(() => {
     if (cbr.daily_status == 'loaded') {
-      setPrices([1, parseFloat(cbr.daily_course[currencies[1]].value) / parseFloat(cbr.daily_course[currencies[0]].value)]);
+      setPrices([1, parseFloat(cbr.daily_course[currencies[0]].value) / parseFloat(cbr.daily_course[currencies[1]].value)]);
     }
   }, [cbr.daily_status]);
 
@@ -70,7 +70,7 @@ const ConverterPage = (): React.ReactElement => {
   return (
     <div className='converter'>
       { currencies.map((cur, curIndex) => {
-        let relation = parseFloat(cbr.daily_course[currencies[1 - curIndex]].value) / parseFloat(cbr.daily_course[cur].value);
+        let relation = parseFloat(cbr.daily_course[cur].value) / parseFloat(cbr.daily_course[currencies[1 - curIndex]].value);
         const cost = (relation).toFixed(4);
         const label = `1 ${cur} = ${cost} ${currencies[1 - curIndex]}`;
         return <React.Fragment key={cur}>
