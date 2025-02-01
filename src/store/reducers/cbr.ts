@@ -12,6 +12,7 @@ interface CbrState {
   daily_status: 'idle' | 'loading' | 'loaded' | 'failed';
   daily_course: {
     [id: string]: {
+      val_id?: string;
       name: string;
       value: string;
     }
