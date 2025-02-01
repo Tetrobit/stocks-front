@@ -37,14 +37,8 @@ const HistoryPage = (): React.ReactElement => {
     }
   }, []);
 
-  React.useEffect(() => {
-    if (cbr.daily_status == 'loaded') {
-      console.log(cbr.daily_course);
-    }
-  }, [cbr.daily_course]);
-
   if (cbr.daily_status != 'loaded') {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
@@ -60,7 +54,6 @@ const HistoryPage = (): React.ReactElement => {
                     value={cur}
                     onChange={handleChangeCurrency(curIndex)}
                     style={{
-                      maxWidth: 'calc(100vw - 130px)',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'normal', 
                     }}
