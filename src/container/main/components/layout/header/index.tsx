@@ -35,9 +35,7 @@ const navigations: Array<{ name: string; href: string }> = [
 
 const Header = (): React.ReactElement => {
   const forceUpdate = React.useReducer(x => x + 1, 0)[1];
-
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [user, setUser] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -46,6 +44,7 @@ const Header = (): React.ReactElement => {
   }
 
   const handleOpenPath = (path) => () => {
+    
     navigate(path);
   }
 
@@ -58,9 +57,6 @@ const Header = (): React.ReactElement => {
           return (
             <ListItem key={`${item.href}-${chosen ? '0' : '1'}`}>
               <ListItemButton onClick={handleOpenPath(item.href)}>
-                {/* <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon> */}
                 <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>

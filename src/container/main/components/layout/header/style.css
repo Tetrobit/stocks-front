@@ -35,12 +35,15 @@ header.app-header .app-header-nav > .app-header-nav-item {
     margin: 0 5px;
 }
 
+.linear-loader {
+    position: absolute;
+    width: 100%;
+}
 
-@media(max-width: 750px) {
+@media(max-width: 780px) {
     header.app-header .app-header-nav {
         display: none;
     }
-    
 
     header.app-header .app-header-drawer {
         display: unset;

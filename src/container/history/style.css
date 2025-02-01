@@ -39,9 +39,7 @@
   .history > .dynamic-chart-wrapper > .dynamic-chart {
     width: 90%;
   }
-}
-
-@media(max-width: 450px) {
+  
   .history > .currencies {
     flex-direction: column;
     margin-bottom: 30px;

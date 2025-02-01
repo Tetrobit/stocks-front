@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import ExRatePage from '../ex_rate';
+import ExRatePage from '../ex-rate';
 import HistoryPage from '../history';
 import ConverterPage from '../converter';
 import LoginPage from '../login';
