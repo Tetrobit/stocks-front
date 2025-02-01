@@ -8,13 +8,25 @@ export const getDaily = createAsyncThunk(
   }
 );
 
+interface CbrState {
+  daily_status: 'idle' | 'loading' | 'loaded' | 'failed';
+  daily_course: {
+    [id: string]: {
+      name: string;
+      value: string;
+    }
+  };
+};
+
+const initialState: CbrState = {
+  daily_status: 'idle',
+  daily_course: {},
+};
+
 const authSlice = createSlice({
   name: 'cbr',
-  initialState: {
-    daily_status: 'idle',
-    daily_course: {},
-  },
   reducers: {},
+  initialState,
   extraReducers: (builder) => {
     builder
       .addCase(getDaily.pending, (state) => {
