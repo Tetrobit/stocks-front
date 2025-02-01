@@ -5,35 +5,42 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import './style.css';
 
-import { getExRate } from '../../api';
 import { COUNTRIES_ICONS } from '../../constants/countries';
 import { CURRENCIES } from '../../constants/currencies';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getDaily } from '../../store/reducers/cbr';
 
 const ExRatePage = (): React.ReactElement => {
 
+  const cbr = useAppSelector(state => state.cbrReducer);
+  const dispatch = useAppDispatch();
   const [currency, setCurrency] = React.useState('RUB');
-  const currencies_values = React.useMemo(() => {
-    let list_currencies = Object.entries(CURRENCIES);
-    list_currencies = list_currencies.filter(cur => cur[0] != currency);
 
-    let currencies_cnt = list_currencies.length;
-    let ex_rate = getExRate();
-    return list_currencies.map(([cur, [name, country]]) => {
-      let price = ex_rate[cur] / ex_rate[currency];
+  const currencies_values = React.useMemo(() => {
+    let list_currencies = Object.entries(cbr.daily_course);
+
+    return list_currencies.map(([cur, info]) => {
+      const price = parseFloat(cbr.daily_course[currency].value) / parseFloat(info.value);
+      const value = price.toFixed(4);
+      const name = info.name;
       return (
         <div key={cur} className='currency-info'>
           <div className='currency-price-info'>
-            <span className='currency-cost'>{price.toFixed(4)} </span>
+            <span className='currency-cost'>{parseFloat(value).toFixed(4)} </span>
             <span className='currency-code'>{cur}</span>
           </div>
           <div className='currency-price-subtitle'>
-            <img width="20" src={COUNTRIES_ICONS[country]} alt={country} />
+            <img width="20" src={COUNTRIES_ICONS[cur] ?? COUNTRIES_ICONS['UNKNOWN']} alt={name} />
             <span className='currency-name'>{name}</span>
           </div>
         </div>
       );
     });
-  }, [currency]);
+  }, [currency, cbr.daily_course]);
+
+  React.useEffect(() => {
+    dispatch(getDaily());
+  }, []);
   
   const handleChange = (event: SelectChangeEvent) => {
     setCurrency(event.target.value);
@@ -47,12 +54,22 @@ const ExRatePage = (): React.ReactElement => {
         <Select
           value={currency}
           onChange={handleChange}
+          MenuProps={{
+            slotProps: {
+              paper: {
+                style: {
+                  // maxHeight: 400
+                }
+              }
+            }
+          }}
         >
-          { Object.entries(CURRENCIES).map(([cur, [name, country]]) => {
+          { Object.entries(cbr.daily_course).map(([cur, info]) => {
+            const name = info.name;
             return (
               <MenuItem key={cur} value={cur}>
                 <div className='currency-item'>
-                  <img width="30" src={COUNTRIES_ICONS[country]} alt={country} />
+                  <img width="30" src={COUNTRIES_ICONS[cur] ?? COUNTRIES_ICONS['UNKNOWN']} alt={name} />
                   <span>{name}</span>
                 </div>
               </MenuItem>
