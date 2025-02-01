@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AuthButton from '../auth-button';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../../../../../store/hooks';
 import { checkAuth, logout } from '../../../../../../../store/reducers/auth';
@@ -83,7 +83,6 @@ export default function AccountMenu() {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         slotProps={{
           paper: {
             elevation: 0,
@@ -115,7 +114,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleProfile}>
+        <MenuItem>
           <Avatar src={user.photo} />{ user.last_name } { user.first_name }
         </MenuItem>
         <Divider />
@@ -123,7 +122,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Выйти
         </MenuItem>
       </Menu>
     </React.Fragment>

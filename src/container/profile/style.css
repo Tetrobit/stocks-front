@@ -58,15 +58,21 @@ p.hidden{
 
 .full-screen-loader {
   position: fixed;
-  top: 0;
+  top: 100px;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #0001;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+@media(max-width: 400px) {
+  .full-screen-loader {
+    top: 70px;
+  }
 }
 
 .profile {

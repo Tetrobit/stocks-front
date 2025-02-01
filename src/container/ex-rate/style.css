@@ -18,12 +18,15 @@
 }
 
 .currency-item {
+  width: 100%;
   display: flex;
   align-items: center;
 }
 
-.currency-item > span {
+.currency-item > .currency-name {
   margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .currency-prices-wrapper {
@@ -51,7 +54,7 @@
 
 .currency-prices-wrapper .currency-prices .currency-price-info {
   text-align: center;
-  font-size: 30pt;
+  font-size: 25pt;
   font-weight: 300;
   border-bottom: 1px solid #eee;
 }
