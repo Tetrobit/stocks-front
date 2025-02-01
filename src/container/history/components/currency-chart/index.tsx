@@ -11,7 +11,7 @@ export type CurrencyChartProps = {
 const CurrencyChart = (props: CurrencyChartProps) => {
     const { labels, data } = useDynamic(props);
     const canvasRef = React.useRef<HTMLCanvasElement>(null)
-    
+
     React.useLayoutEffect(() => {
         if (!data.length) return;
 
@@ -31,13 +31,10 @@ const CurrencyChart = (props: CurrencyChartProps) => {
         
         return () => {
             // Dispose the instance
+            chart.clear();
             chart.destroy();
         }
-    }, [props.currencyBuy, props.currencySell, data]);
-
-    if (!data.length) {
-        return <div></div>
-    }
+    }, [labels, data]);
 
     return (
         <React.Fragment>
