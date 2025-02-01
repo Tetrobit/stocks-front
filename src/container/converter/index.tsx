@@ -24,8 +24,8 @@ const ConverterPage = (): React.ReactElement => {
 
   const [currencies, setCurrencies] = React.useState(['RUB', 'USD']);
   const [prices, setPrices] = React.useState([
-    1,
-    1
+    '1',
+    '1'
   ]);
 
   const handleChangeCurrency = (id: number) => (event: SelectChangeEvent) => {
@@ -35,15 +35,18 @@ const ConverterPage = (): React.ReactElement => {
 
     let relation = parseFloat(cbr.daily_course[newCurrencies[id]].value) / parseFloat(cbr.daily_course[newCurrencies[1 - id]].value);
     let newPrices = prices.slice()
-    newPrices[1 - id] = newPrices[id] * relation;
+    newPrices[1 - id] = (parseFloat(newPrices[id]) * relation).toPrecision(7);
     setPrices(newPrices);
   };
 
   const handleChangePrice = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let newPrices = prices.slice()
     let relation = parseFloat(cbr.daily_course[currencies[id]].value) / parseFloat(cbr.daily_course[currencies[1 - id]].value);
-    newPrices[id] = parseFloat(event.target.value ? event.target.value : '0');
-    newPrices[1 - id] = newPrices[id] * relation;
+    newPrices[id] = event.target.value ? event.target.value : '0';
+    newPrices[1 - id] = (parseFloat(newPrices[id]) * relation).toPrecision(7);
+    while (newPrices[id].length > 1 && newPrices[id][0] == '0' && newPrices[id][1] != ',') {
+      newPrices[id] = newPrices[id].substr(1);
+    }
     setPrices(newPrices);
   }
 
@@ -65,7 +68,8 @@ const ConverterPage = (): React.ReactElement => {
   React.useEffect(() => {
     if (cbr.daily_status == 'loaded') {
       dispatch(loadOff(2000));
-      setPrices([1, parseFloat(cbr.daily_course[currencies[0]].value) / parseFloat(cbr.daily_course[currencies[1]].value)]);
+      const value = parseFloat(cbr.daily_course[currencies[0]].value) / parseFloat(cbr.daily_course[currencies[1]].value);
+      setPrices(['1', value.toPrecision(6)]);
     }
   }, [cbr.daily_status]);
 
