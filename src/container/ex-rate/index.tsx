@@ -39,10 +39,12 @@ const ExRatePage = (): React.ReactElement => {
       );
     });
   }, [currency, cbr.daily_course]);
-
-  React.useEffect(() => {
-    dispatch(getDaily());
-  }, []);
+  
+    React.useEffect(() => {
+      if (cbr.daily_status == 'idle') {
+        dispatch(getDaily());
+      }
+    }, []);
   
   const handleChange = (event: SelectChangeEvent) => {
     setCurrency(event.target.value);
